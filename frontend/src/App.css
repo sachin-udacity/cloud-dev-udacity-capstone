@@ -34,7 +34,7 @@
     margin-top: 30px;
 }
 
-.item-container ul {
+.item-container {
   list-style: none;
 }
 
@@ -43,6 +43,7 @@
   border-width: 0 0 2px 0;
   border-style: solid;
   padding-bottom: 5px;
+  margin-bottom: 12px;
 }
 
 .item-container .item-name {

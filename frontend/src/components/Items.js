@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react'
 import  Auth from '../auth/Auth'
 import createHistory from 'history/createBrowserHistory'
-import { createItem_, deleteItem_, getItems_, patchItem_ } from '../api/items-api'
+import { createItem, deleteItem, getItems, patchItem } from '../api/items-mock-api'
 
 const history = createHistory()
 const auth = new Auth(history)
@@ -29,7 +29,7 @@ class Items extends Component {
   
     onItemCreate = async (event) => {
       try {
-        const newItem = await createItem_(auth.getIdToken(), {
+        const newItem = await createItem(auth.getIdToken(), {
           name: this.state.newItemName
         })
         this.setState({
@@ -43,7 +43,7 @@ class Items extends Component {
   
     onItemDelete = async (itemId) => {
       try {
-        await deleteItem_(auth.getIdToken(), itemId)
+        await deleteItem(auth.getIdToken(), itemId)
         this.setState({
           items: this.state.items.filter(item => item.itemId !== itemId)
         })
@@ -55,7 +55,7 @@ class Items extends Component {
     onItemCheck = async (pos) => {
       try {
         const item = this.state.items[pos]
-        await patchItem_(auth.getIdToken(), item.itemId, {
+        await patchItem(auth.getIdToken(), item.itemId, {
           name: item.name,
           dueDate: item.dueDate,
           done: !item.done
@@ -72,7 +72,7 @@ class Items extends Component {
   
     async componentDidMount() {
       try {
-        const items = await getItems_(auth.getIdToken())
+        const items = await getItems(auth.getIdToken())
         this.setState({
           items,
           loading: false
@@ -140,21 +140,22 @@ class Items extends Component {
     renderItemsList() {
       return (
         <Grid padded>
-          {this.state.items.map((item, pos) => {
-            return (
-              <div className="item-container">
-                <ul>
-                  <li className="item">
+          <ul className="item-container">
+          {
+              this.state.items.map((item, pos) => {
+                return (
+                  <li key={item.itemId} id={item.itemId} className="item">
                     <div>
                       <input type="checkbox" className="item-done" checked={item.done} onChange={() => this.onItemCheck(pos)} />
                       <div className="item-name">{item.name}</div>
                       <button className="btn-delete" onClick={() => this.onItemDelete(item.itemId)}>x</button>
                     </div>                    
-                  </li>
-                </ul>
-              </div>
+                  </li>              
+                )
+              }
             )
-          })}
+          }
+          </ul>
         </Grid>
       )
     }
