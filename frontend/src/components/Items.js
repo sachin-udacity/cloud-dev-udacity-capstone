@@ -57,7 +57,6 @@ class Items extends Component {
         const item = this.state.items[pos]
         await patchItem(auth.getIdToken(), item.itemId, {
           name: item.name,
-          dueDate: item.dueDate,
           done: !item.done
         })
         this.setState({

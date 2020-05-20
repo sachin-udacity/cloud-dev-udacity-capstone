@@ -3,6 +3,5 @@
  */
 export interface CreateItemRequest {
   name: string
-  dueDate: string
   attachmentUrl?: string
 }
