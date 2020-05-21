@@ -2,14 +2,13 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 import { CreateItemRequest } from '../../requests/CreateItemRequest'
+import { getJwToken } from '../utils'
 import { createItem } from '../../businessLogic/items'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const newItemReq: CreateItemRequest = JSON.parse(event.body)
 
-  const authorization = event.headers.Authorization;
-  const authorizationParams = authorization.split(' ')
-  const jwToken = authorizationParams[1]
+  const jwToken = getJwToken(event.headers.Authorization)
 
   const newItem = await createItem(
     newItemReq,
@@ -28,7 +27,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   return {
     statusCode: 201,
     headers: {
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true
     },
     body: JSON.stringify({
         item

@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { parseUserId } from "../auth/utils";
+import { parseUserId, getAuthJwToken } from "../auth/utils";
 
 /**
  * Get a user id from an API Gateway event
@@ -17,5 +17,8 @@ export function getUserId(event: APIGatewayProxyEvent): string {
 
 export function getJwToken(authorization: string) {
   const authorizationParams = authorization.split(' ')
-  return authorizationParams[1]
+  let token = authorizationParams[1];
+  // remove this token when client end token retrieval is implemented.
+  token = getAuthJwToken();
+  return token
 }

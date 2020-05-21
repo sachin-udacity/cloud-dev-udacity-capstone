@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react'
 import  Auth from '../auth/Auth'
 import createHistory from 'history/createBrowserHistory'
-import { createItem, deleteItem, getItems, patchItem } from '../api/items-mock-api'
+import { createItem, deleteItem, getItems, patchItem } from '../api/items-api'
 
 const history = createHistory()
 const auth = new Auth(history)

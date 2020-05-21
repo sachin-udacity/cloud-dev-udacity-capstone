@@ -21,8 +21,6 @@ provider:
   environment:
     ITEMS_TABLE: Items-${self:provider.stage}
     ITEMS_USERID_INDEX: UserIdIndex
-    SIGNED_URL_EXPIRATION: 300
-    IMAGES_S3_BUCKET: cloud-dev-${self:service.name}-${self:provider.stage}
 
 custom:
   webpack:
