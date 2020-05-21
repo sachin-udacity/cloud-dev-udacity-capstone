@@ -1,10 +1,10 @@
 # Cloud Developer Capstone Project
 
 ## About
-Project is personal dashboard where user can view/add/delete/complete items
+Project is a personal dashboard where user can view/add/delete/complete items
 
 ## Complteted Rubric Requirements
-Project uses Option 2 - Serverless
+The project uses Option 2 - Serverless
 
 As per project instructions, it completely fulfills following three rubric requirements -
 
